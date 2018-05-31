@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Three.js Crash Course</title>
+
+    <style>
+      body { margin: 0; }
+      canvas { width: 100%; height: 100%; };
+    </style>
+  </head>
+
+  <body>
+    <script src = "js/three.js"></script>
+
+    <script>
+      // Camera Values
+      var FOV = 75;
+      var NEAR_CLIPPING_PLANE = 0.1;
+      var FAR_CLIPPING_PLANE = 1000;
+      
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(FOV, (window.innerWidth / window.innerHeight), NEAR_CLIPPING_PLANE, FAR_CLIPPING_PLANE);
+
+      var renderer = new THREE.WebGLRenderer();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // create the shape
+			var geometry = new THREE.BoxGeometry(1, 1, 1);
+			
+      // create a material, colour or image texture
+			var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+			
+      // create the cube and render it to the scene
+      var cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+			
+      camera.position.z = 3;
+
+      // logic
+      var update = function() {
+        cube.rotation.x += .01;
+				cube.rotation.y += .01;
+      }
+
+      // draws the scene
+      var render = function() {
+        renderer.render(scene, camera);
+      }
+
+      // run game loop (update, render, repeat)
+      var animate = function() {
+        requestAnimationFrame(animate);
+
+        update();
+        render();
+      }
+
+			animate();
+
+    </script>
+  </body>
+</html>
